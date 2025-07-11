@@ -1,0 +1,28 @@
+from utils import get_live_price, get_current_time
+import random
+
+def analyze_and_trade(request):
+    # Simulate AI signal generation
+    confidence = round(random.uniform(70, 99), 2)
+    signal = "BUY" if confidence > 80 else "HOLD"
+
+    response = {
+        "symbol": request.symbol,
+        "confidence": confidence,
+        "signal": signal,
+        "price": get_live_price(request.symbol),
+        "mode": request.mode,
+        "timestamp": get_current_time(),
+        "wallet": request.wallet,
+        "insider_flagged": confidence > 95
+    }
+
+    # Simulate holding longer with insider signal
+    if confidence > 95 and request.mode == "REAL":
+        response["hold_duration"] = "EXTENDED"
+        response["amount_scaled"] = True
+    else:
+        response["hold_duration"] = "NORMAL"
+        response["amount_scaled"] = False
+
+    return response

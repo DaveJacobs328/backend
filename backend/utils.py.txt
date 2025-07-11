@@ -1,0 +1,19 @@
+import random
+import datetime
+
+def get_supported_assets():
+    return ["DOGE", "SHIBA", "PEPE", "FLOKI", "GME", "AMC", "TSLA", "NVDA"]
+
+def get_live_price(symbol):
+    return round(random.uniform(0.00001, 10), 6)  # Simulated price
+
+def get_trading_summary():
+    return {
+        "trades_today": random.randint(5, 25),
+        "total_profit": round(random.uniform(20, 500), 2),
+        "accuracy": f"{random.randint(70, 95)}%",
+        "high_confidence_trades": random.randint(3, 10),
+    }
+
+def get_current_time():
+    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
