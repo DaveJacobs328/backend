@@ -1,36 +1,7 @@
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
-from trade_ai import analyze_and_trade
-from utils import get_supported_assets, get_live_price, get_trading_summary
-from models import TradeRequest
+from fastapi import FastAPI
 
 app = FastAPI()
 
-# Allow frontend calls from Vercel
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Set to specific Vercel domain in production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 @app.get("/")
-def root():
-    return {"message": "AI Trading Backend v4 is Live"}
-
-@app.post("/trade")
-async def trade(request: TradeRequest):
-    return analyze_and_trade(request)
-
-@app.get("/assets")
-def assets():
-    return get_supported_assets()
-
-@app.get("/price/{symbol}")
-def price(symbol: str):
-    return {"symbol": symbol, "price": get_live_price(symbol)}
-
-@app.get("/summary")
-def summary():
-    return get_trading_summary()
+def home():
+    return {"message": "AI Trading Backend is running!"}
